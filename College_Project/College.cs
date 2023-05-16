@@ -449,10 +449,22 @@ namespace College_Project
 
                 if (st.name[st.name.Length - 1].Equals('a'))
                 {
+                    foreach (Student st2 in college.womenList) {
+                        if (st == st2) {
+                            break;
+                        }
+                    }
                     college.womenList.Add(st);
                 }
                 else
                 {
+                    foreach (Student st2 in college.womenList)
+                    {
+                        if (st == st2)
+                        {
+                            break;
+                        }
+                    }
                     college.menList.Add(st);
                 }
             }
