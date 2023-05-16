@@ -22,7 +22,8 @@ namespace College_Project
         public int age;  
         public double averageGrade;
         public string pesel;
-        public string group ="";        
+        public string group ="";
+        public int semester;
 
         public Student(List<Student> studentList, List<Student> studentListInt)
         {
@@ -32,16 +33,19 @@ namespace College_Project
             this.age = random.Next(19, 55);
             this.averageGrade = Math.Round(random.NextDouble() * (5.0 - 2.0) + 2.0, 2);
             this.pesel = peselGenerator(studentListInt);
+            this.semester = random.Next(1, 8);
         }
 
-        public Student(string name, string lastName, string email, int age, double averageGrade, string pesel)
+        public Student(string name, string lastName, int age, double averageGrade, string group, int semester, List<Student> studentListInt, List<Student> studentList)
         {
             this.name = name;
             this.lastName = lastName;
-            this.email = email;
+            this.email = emailGenerator(studentList);
             this.age = age;
             this.averageGrade = averageGrade;
-            this.pesel = pesel;
+            this.group = group;
+            this.semester = semester;
+            this.pesel = peselGenerator(studentListInt);
         }
 
         public string peselGenerator(List<Student> studentList) {
@@ -88,7 +92,8 @@ namespace College_Project
                 }
             } while (peselDuplicate);
             return pesel;
-        }
+        }       
+        
         public string emailGenerator(List<Student> studentList)
         {            
             bool emailDuplicate = true;
@@ -120,7 +125,7 @@ namespace College_Project
         }
         public override string ToString()
         {
-            return $"Imię:{this.name}, Nazwisko:{this.lastName}, Wiek:{this.age}, Email:{this.email}, Średnia:{this.averageGrade}, Grupa:{this.group}, Pesel:{this.pesel}";
+            return $"Name:{this.name}, Lastname:{this.lastName}, Age:{this.age}, mail:{this.email}, Semestr:{this.semester}, Avg:{this.averageGrade}, Grp:{this.group}, Pesel:{this.pesel}";
         }
     }
 }
