@@ -10,48 +10,51 @@ Random random = new Random();
 college.studentCreator(college);
 college.randomStudentGenerator(college);
 
+college.menu(college);
 
-Console.WriteLine("-----------------");
-Console.WriteLine("ALL STUDENTS");
-foreach (Student st in college.studentList) {
-    Console.WriteLine(st);
-}
-Console.WriteLine("-----------------");
-Console.WriteLine("Semester1");
-foreach (Student st in college.semester1)
-{
-    Console.WriteLine(st);
-}
-Console.WriteLine("-----------------");
-Console.WriteLine("3 Semester");
-foreach (Student st in college.semester3)
-{
-    Console.WriteLine(st);
-}
-Console.WriteLine("-----------------");
-Console.WriteLine("Women");
-foreach (Student st in college.womenList)
-{
-    Console.WriteLine(st);
-}
-Console.WriteLine("-----------------");
-Console.WriteLine("Men");
-foreach (Student st in college.menList)
-{
-    Console.WriteLine(st);
-}
-Console.WriteLine("-----------------");
-Console.WriteLine("S1Group 1");
-foreach (Student st in college.s1Group1)
-{
-    Console.WriteLine(st);
-}
-Console.WriteLine("-----------------");
-Console.WriteLine("S5 GROUP 5");
-foreach (Student st in college.s5Group2)
-{
-    Console.WriteLine(st);
-}
+
+
+//Console.WriteLine("-----------------");
+//Console.WriteLine("ALL STUDENTS");
+//foreach (Student st in college.studentList) {
+//    Console.WriteLine(st);
+//}
+//Console.WriteLine("-----------------");
+//Console.WriteLine("Semester1");
+//foreach (Student st in college.semester1)
+//{
+//    Console.WriteLine(st);
+//}
+//Console.WriteLine("-----------------");
+//Console.WriteLine("3 Semester");
+//foreach (Student st in college.semester3)
+//{
+//    Console.WriteLine(st);
+//}
+//Console.WriteLine("-----------------");
+//Console.WriteLine("Women");
+//foreach (Student st in college.womenList)
+//{
+//    Console.WriteLine(st);
+//}
+//Console.WriteLine("-----------------");
+//Console.WriteLine("Men");
+//foreach (Student st in college.menList)
+//{
+//    Console.WriteLine(st);
+//}
+//Console.WriteLine("-----------------");
+//Console.WriteLine("S1Group 1");
+//foreach (Student st in college.s1Group1)
+//{
+//    Console.WriteLine(st);
+//}
+//Console.WriteLine("-----------------");
+//Console.WriteLine("S5 GROUP 5");
+//foreach (Student st in college.s5Group2)
+//{
+//    Console.WriteLine(st);
+//}
 
 
 
