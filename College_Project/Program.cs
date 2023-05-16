@@ -8,7 +8,7 @@ College college = new College("WSB");
 Random random = new Random();
 
 college.studentCreator(college);
-college.randomStudnetGenerator(college);
+college.randomStudentGenerator(college);
 
 
 Console.WriteLine("-----------------");

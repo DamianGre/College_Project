@@ -97,7 +97,7 @@ namespace College_Project
             Console.WriteLine("Welcome in WSB College.");
         }
 
-        public void randomStudnetGenerator(College college) {
+        public void randomStudentGenerator(College college) {
             int numberToCreate = 0;
             try
             {
