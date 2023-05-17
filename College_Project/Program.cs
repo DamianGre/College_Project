@@ -7,8 +7,8 @@ College college = new College("WSB");
 
 Random random = new Random();
 
-college.studentCreator(college);
-college.randomStudentGenerator(college);
+//college.studentCreator(college);
+//college.randomStudentGenerator(college);
 
 college.menu(college);
 

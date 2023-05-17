@@ -22,8 +22,10 @@ namespace College_Project
         public int age;  
         public double averageGrade;
         public string pesel;
-        public string group ="";
+        public int group;
         public int semester;
+        public bool sorted = false;
+        public bool genderSorted = false;
 
         public Student(List<Student> studentList, List<Student> studentListInt)
         {
@@ -34,9 +36,10 @@ namespace College_Project
             this.averageGrade = Math.Round(random.NextDouble() * (5.0 - 2.0) + 2.0, 2);
             this.pesel = peselGenerator(studentListInt);
             this.semester = random.Next(1, 8);
+            this.group = random.Next(1, 3);
         }
 
-        public Student(string name, string lastName, int age, double averageGrade, string group, int semester, List<Student> studentListInt, List<Student> studentList)
+        public Student(string name, string lastName, int age, double averageGrade, int group, int semester, List<Student> studentListInt, List<Student> studentList)
         {
             this.name = name;
             this.lastName = lastName;
@@ -95,13 +98,13 @@ namespace College_Project
         }       
         
         public string emailGenerator(List<Student> studentList)
-        {            
+        {   
             bool emailDuplicate = true;
             string email= "";
             do {
                 Random random = new Random();
                 string[] emailEndings = { "example.com", "gnail.com", "vp.pl", "onteria.pl" };
-                email = this.name + "." + lastName[0] + Convert.ToString(random.Next(1, 1000)) + "@" + emailEndings[random.Next(0, emailEndings.Length)];
+                email = this.name.ToLower() + "." + char.ToLower(lastName[0]) + Convert.ToString(random.Next(1, 1000)) + "@" + emailEndings[random.Next(0, emailEndings.Length)];
 
                 if (studentList.Count != 0) {                    
                     foreach (Student st in studentList)
