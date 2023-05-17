@@ -374,18 +374,34 @@ namespace College_Project
             int semester;
             double averageGrade;
             Console.WriteLine("Student email and pesel will be generated automatically!");
-            Console.Write("Enter student name: ");
+           
+            Console.Write("Enter student name: ");            
             name = Console.ReadLine();
+
             Console.Write("\nEnter student last name: ");
             lastName = Console.ReadLine();
-            Console.Write("\nEnter student age(from 19 or 54): ");
-            age = Convert.ToInt32(Console.ReadLine());
-            Console.Write("\nEnter student averageGrade: ");
-            averageGrade = Convert.ToDouble(Console.ReadLine());
-            Console.Write("\nEnter student semester(from 1 or 7): ");
-            semester = Convert.ToInt32(Console.ReadLine());
-            Console.Write("\nEnter student group(from 1 or 2): ");
-            group = Convert.ToInt32(Console.ReadLine());
+
+            do {
+                Console.Write("\nEnter student age(from 19 or 54 - students belowe 19 and above 54 are forbiden): ");
+                age = Convert.ToInt32(Console.ReadLine());
+            } while (age < 19 || age > 54);
+
+            do
+            {
+                Console.Write("\nEnter student averageGrade(from 0 to 5,0) enter come NOT DOT!: ");
+                averageGrade = Convert.ToDouble(Console.ReadLine());
+            } while (averageGrade < 0 || averageGrade > 5.0);
+            do
+            {
+                Console.Write("\nEnter student semester(from 1 or 7): ");
+                semester = Convert.ToInt32(Console.ReadLine());
+            } while (semester < 1 || semester > 7);
+            do
+            {
+                Console.Write("\nEnter student group(from 1 or 2): ");
+                group = Convert.ToInt32(Console.ReadLine());
+            } while (group < 1 || group > 2);          
+
             college.studentList.Add(new Student(name, lastName, age, averageGrade, group, semester, college.studentList, college.studentList));
         }
 
