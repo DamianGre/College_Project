@@ -388,7 +388,7 @@ namespace College_Project
 
             do
             {
-                Console.Write("\nEnter student averageGrade(from 0 to 5,0) enter come NOT DOT!: ");
+                Console.Write("\nEnter student averageGrade(from 0 to 5,0) enter with coma NOT DOT!: ");
                 averageGrade = Convert.ToDouble(Console.ReadLine());
             } while (averageGrade < 0 || averageGrade > 5.0);
             do
