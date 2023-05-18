@@ -39,7 +39,7 @@ namespace College_Project
             this.group = random.Next(1, 3);
         }
 
-        public Student(string name, string lastName, int age, double averageGrade, int group, int semester, List<Student> studentListInt, List<Student> studentList)
+        public Student(string name, string lastName, int age, double averageGrade, int group, int semester, string pesel, List<Student> studentListInt, List<Student> studentList)
         {
             this.name = name;
             this.lastName = lastName;
@@ -48,7 +48,7 @@ namespace College_Project
             this.averageGrade = averageGrade;
             this.group = group;
             this.semester = semester;
-            this.pesel = peselGenerator(studentListInt);
+            this.pesel = pesel;
         }
 
         public string peselGenerator(List<Student> studentList) {

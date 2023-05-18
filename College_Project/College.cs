@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -65,6 +66,7 @@ namespace College_Project
                 sum += st.averageGrade;
             }
             double avg = sum / klass.Count;
+            avg = (double)Math.Round(avg, 2);
             Console.WriteLine("Average Grade of the group is Equal to: " + avg);
         }
         
@@ -366,43 +368,54 @@ namespace College_Project
 
         public void studentCreator(College college)
         {
-            string name;
-            string lastName;
-            string email;
-            int group;
-            int age;
-            int semester;
-            double averageGrade;
-            Console.WriteLine("Student email and pesel will be generated automatically!");
-           
-            Console.Write("Enter student name: ");            
-            name = Console.ReadLine();
+            if (college.studentList.Count < 250) {
+                string name;
+                string lastName;
+                string email;
+                int group;
+                int age;
+                int semester;
+                double averageGrade;
+                Console.WriteLine("Student email and pesel will be generated automatically!");
 
-            Console.Write("\nEnter student last name: ");
-            lastName = Console.ReadLine();
+                Console.Write("Enter student name: ");
+                name = Console.ReadLine();
 
-            do {
-                Console.Write("\nEnter student age(from 19 or 54 - students belowe 19 and above 54 are forbiden): ");
-                age = Convert.ToInt32(Console.ReadLine());
-            } while (age < 19 || age > 54);
+                Console.Write("\nEnter student last name: ");
+                lastName = Console.ReadLine();
 
-            do
-            {
-                Console.Write("\nEnter student averageGrade(from 0 to 5,0) enter with coma NOT DOT!: ");
-                averageGrade = Convert.ToDouble(Console.ReadLine());
-            } while (averageGrade < 0 || averageGrade > 5.0);
-            do
-            {
-                Console.Write("\nEnter student semester(from 1 or 7): ");
-                semester = Convert.ToInt32(Console.ReadLine());
-            } while (semester < 1 || semester > 7);
-            do
-            {
-                Console.Write("\nEnter student group(from 1 or 2): ");
-                group = Convert.ToInt32(Console.ReadLine());
-            } while (group < 1 || group > 2);          
+                do
+                {
+                    Console.Write("\nEnter student age(from 19 or 54 - students belowe 19 and above 54 are forbiden): ");
+                    age = Convert.ToInt32(Console.ReadLine());
+                } while (age < 19 || age > 54);
 
-            college.studentList.Add(new Student(name, lastName, age, averageGrade, group, semester, college.studentList, college.studentList));
+                do
+                {
+                    Console.Write("\nEnter student averageGrade(from 0 to 5,0) enter with coma NOT DOT!: ");
+                    averageGrade = Convert.ToDouble(Console.ReadLine());
+                } while (averageGrade < 0 || averageGrade > 5.0);
+                do
+                {
+                    Console.Write("\nEnter student semester(from 1 or 7): ");
+                    semester = Convert.ToInt32(Console.ReadLine());
+                } while (semester < 1 || semester > 7);
+                do
+                {
+                    Console.Write("\nEnter student group(from 1 or 2): ");
+                    group = Convert.ToInt32(Console.ReadLine());
+                } while (group < 1 || group > 2);
+
+                string pesel = peselChecker(college.studentList);
+
+                college.studentList.Add(new Student(name, lastName, age, averageGrade, group, semester, pesel, college.studentList, college.studentList));
+                Console.Clear();
+                Console.WriteLine("Student has been created \n");
+            }
+            else {
+                Console.Clear();
+                Console.WriteLine("You can't add more students - maximum number of students achieved!\n");
+            }            
         }
 
         public void groupPrinter(List<Student> stList) {
@@ -421,38 +434,53 @@ namespace College_Project
         }
 
         public void randomStudentGenerator(College college) {
-            int numberToCreate = 0;
-            try
-            {
-                do
-                {
-                    Console.Write("Enter number of students to create(from 1 to 250):");
-                    numberToCreate = Convert.ToInt32(Console.ReadLine());
-                    if (numberToCreate <= 0 || numberToCreate > 250)
-                    {
-                        Console.WriteLine("Wrong number");
-                    }
-                } while (numberToCreate <= 0 || numberToCreate > 250);
 
-                for (int i = 0; i < numberToCreate; i++)
+            if (college.studentList.Count < 250)
+            {
+                int numberToCreate = 0;
+                try
                 {
-                    college.studentList.Add(new Student(college.studentList, college.studentList));
+                    do
+                    {
+                        numberToCreate = 0;
+                        Console.Write("Enter number of students to create(from 1 to 250):");
+                        numberToCreate = Convert.ToInt32(Console.ReadLine());
+                        if (numberToCreate <= 0 || numberToCreate > 250)
+                        {
+                            Console.WriteLine("Wrong number");
+                        }
+                    } while (numberToCreate <= 0 || numberToCreate > 250);
+                    if (numberToCreate + college.studentList.Count <= 250) {
+                        for (int i = 0; i < numberToCreate; i++)
+                        {
+                            college.studentList.Add(new Student(college.studentList, college.studentList));
+                        }
+                        foreach (Student st in college.studentList)
+                        {
+                            semesterAndGropuSegregator(st, college);
+                        }
+                        genderStudentSegregator(college);
+                        Console.Clear();
+                        Console.WriteLine(numberToCreate + " students has been created \n");
+                    }
+                    else
+                    {
+                        Console.Clear();                        
+                        Console.WriteLine("You can't create that much students - max number of students is 250!\nYou can add:" + (250 - college.studentList.Count)+ " more students\n");
+                    }
                 }
-                foreach (Student st in college.studentList) {
-                    semesterAndGropuSegregator(st, college);                    
-                }
-                genderStudentSegregator(college);
+                catch (Exception e) { Console.WriteLine(e); }
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("You can't add more students - maximum number of students achieved!\n");
+            }
         }
         public void genderStudentSegregator(College college) {           
 
             foreach (Student st in college.studentList)
-            {
-                if (st.semester == 1)
-                {
-                    st.averageGrade = 0.0;
-                }
+            {                
                 if (!st.genderSorted) {
                     if (st.name[st.name.Length - 1].Equals('a'))
                     {
@@ -596,8 +624,54 @@ namespace College_Project
                     }
                     break;
             }
-        }       
+        }
 
+        public string peselChecker(List<Student> studentList) {
+            bool peselCorectness = false;
+            string pesel = "";
+            int[] forumlaDigits = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 1 };
+            int cheking = 0;
+
+            do
+            {
+                cheking = 0;
+                Console.WriteLine("Enter pesel number(11 digits(int)):");
+                pesel = Console.ReadLine();
+                if (pesel.Length != 11)
+                {
+                    peselCorectness = false;
+                    Console.WriteLine("WRONG pesel lenght!");
+                    Console.WriteLine(pesel);
+                }
+                else {                    
+                    for (int i = 0; i < forumlaDigits.Length; i++)
+                    {
+                        cheking += Convert.ToInt32(pesel[i]) * forumlaDigits[i];
+                    }
+                    cheking = cheking % 10;
+                    if (cheking == 0)
+                    {
+                        peselCorectness = true;
+                        foreach (Student st in studentList)
+                        {
+                            if (Convert.ToString(pesel) == st.pesel)
+                            {
+                                Console.WriteLine("!Student with that pesel already exist in our base!Enter other pesel");
+                                peselCorectness = false;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        peselCorectness = false;
+                        Console.WriteLine("Entered pesel is WRONG!");
+                        Console.WriteLine(pesel);
+                    }
+                }                
+            } while (!peselCorectness);
+            return pesel;
+        }
         public override string ToString()
         {
             return "College " + this.name;
